@@ -1,3 +1,6 @@
+"""
+This module defines the APIs for the audit-trail-service.
+"""
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
 from .models import AuditLogEvent, EventType
@@ -8,7 +11,7 @@ main = Blueprint('main', __name__)
 @main.route('/event', methods=['POST'])
 def add_audit_log_event ():
     """
-    Adds a new AuditLogEvent to the database. 
+    Adds a new AuditLogEvent to the database.
 
     TODO: Implement authorization and authentication of the client here to ensure that
     they are allowed to be adding to this database.
@@ -16,23 +19,24 @@ def add_audit_log_event ():
     ### Request Headers
     - `X-Client-ID` _(string, required)_: The ID of the client making the request.
     - `X-User-ID` _(string, required)_: The ID of the user making the request.
-    
+
     ### Request Body
-    - `event_type` _(string, required)_: The type of event. Must be a valid `EventType` or a custom type.
-    - `status` _(integer, optional)_: The status code of the event.(TODO: Create enum class for status codes) 
-    - `entity_json` _(JSON, optional)_: Additional data specific to the event. 
-    
-    ### Responses 
+    - `event_type` _(string, required)_: The type of event.
+    - `status` _(integer, optional)_: The status code of the event.
+      (TODO: Create enum class for status codes)
+    - `entity_json` _(JSON, optional)_: Additional data specific to the event.
+
+    ### Responses
     #### 201 Created
     ```json
     {
         "message": "Audit Log Event added successfully."
     }
     ```
-    
+
     #### 400 Bad Request
     ```json
-    { 
+    {
         "error": "Invalid JSON provided.", "message": "Detailed error message."
     }
     ```
@@ -42,55 +46,55 @@ def add_audit_log_event ():
     }
     ```
     ```json
-    { 
-        "error": "User ID is required" 
+    {
+        "error": "User ID is required"
     }
     ```
     ```json
-    { 
+    {
         "error": "event_type is required"
     }
     ```
     ```json
-    { 
+    {
         "error": "Invalid event_type"
     }
     ```
-    
+
     #### 500 Internal Server Error
-    ```json 
+    ```json
     {
         "error": "Database error", "message": "Detailed error message."
     }
     ```
-    ```json 
+    ```json
     {
-        "error": "An unexpected error occurred", "message": "Detailed error message." 
+        "error": "An unexpected error occurred", "message": "Detailed error message."
     }
     ```
-     
-    ### Example Request 
-    #### Request 
+
+    ### Example Request
+    #### Request
     ```http
     POST /event HTTP/1.1
     Host: example.com
-    Content-Type: application/json 
+    Content-Type: application/json
     X-Client-ID: client123
     X-User-ID: user456
     {
         "event_type": "USER_LOGIN",
         "status": 200,
         "entity_json": {
-            "key": "value" 
-        } 
+            "key": "value"
+        }
     }
-    ``` 
-    
+    ```
+
     #### Response
-    **201 Created** 
+    **201 Created**
     ```json
     {
-        "message": "Audit Log Event added successfully." 
+        "message": "Audit Log Event added successfully."
     }
     ```
     """
@@ -98,7 +102,7 @@ def add_audit_log_event ():
         data = request.get_json()
     except Exception as e:
         return jsonify({'error': 'Invalid JSON provided.', 'message': str(e)}), 400
-        
+
     client_id = request.headers.get('X-Client-ID')
     user_id = request.headers.get('X-User-ID')
     request_method = request.method
@@ -114,9 +118,9 @@ def add_audit_log_event ():
         event_type = EventType[event_type].value
 
     if not client_id:
-         return jsonify({'error': 'Client ID is required'}),400
+        return jsonify({'error': 'Client ID is required'}),400
 
-    # TODO: Validate the caller has the required permissions to add a new AuditLogEvent entry to this db
+    # TODO: Validate the caller has the required permissions to add a new entry to this db
     try:
         new_audit_log_event = AuditLogEvent(
             event_type=event_type,
@@ -131,7 +135,7 @@ def add_audit_log_event ():
         audit_trail_db.session.commit()
     except SQLAlchemyError as e:
         # Rollback in case of database error
-        audit_trail_db.session.rollback() 
+        audit_trail_db.session.rollback()
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
     except Exception as e:
         return jsonify({'error': 'An unexpected error occurred', 'message': str(e)}), 500
@@ -190,7 +194,8 @@ def get_audit_log_event(event_id):
     client_id = request.headers.get('X-Client-ID')
 
 
-    #TODO: Validate the caller has the required permissions to access this resource. For now ensure client_id is present.
+    #TODO: Validate the caller has the required permissions to access this resource.
+    #  For now ensure client_id is present.
     if not client_id:
         return jsonify({'error': 'Client ID is required'}), 400
 
@@ -209,23 +214,23 @@ def get_audit_log_event(event_id):
             'status': requested_audit_log_event.status,
             'entity_json': requested_audit_log_event.entity_json
         }), 200
-    
+
     except Exception as e:
         return jsonify({'error': 'An unexpected error occurred', 'message': str(e)}), 500
-    
+
 @main.route('/events', methods=['GET'])
 def get_all_audit_log_events():
     """
     Retrieves all AuditLogEvents.
 
     TODO: Implement authorization and authentication of the client here to ensure that
-    they are allowed to be accessing this resource. In addition, have a discussion with 
+    they are allowed to be accessing this resource. In addition, have a discussion with
     the team on if this endpoint should return all entries, or if it should return only
     those which corespond to the client that is making the given request:
-    - i.e., Client A can only read entries that have a matching client_id value to it(that of Client A),
-      whereas entries corresponding to Client B would not be returned.
-    - With this, it would then bring up the discussion of if users/clients with an Admin role can exist,
-      and only they could access all entries at once, or any entry belonging to any microservice.
+    - i.e., Client A can only read entries that have a matching client_id value to it
+      (that of Client A), whereas entries corresponding to Client B would not be returned.
+    - With this, it would then bring up the discussion of if users/clients with an Admin
+      role can exist, and only they could access all entries belonging to any microservice.
 
     ### Request Headers
     - `X-Client-ID` _(string, required)_: The ID of the client making the request.
@@ -264,8 +269,8 @@ def get_all_audit_log_events():
     ```
     """
     client_id = request.headers.get('X-Client-ID')
-   
-    #TODO: Validate the caller has the required permissions to access this resource. For now ensure client_id is present.
+    #TODO: Validate the caller has the required permissions to access this resource.
+    # For now ensure client_id is present.
     if not client_id:
         return jsonify({'error': 'Client ID is required'}), 400
 
