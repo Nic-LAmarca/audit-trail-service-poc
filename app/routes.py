@@ -18,7 +18,7 @@ def add_audit_log_event ():
 
     ### Request Headers
     - `X-Client-ID` _(string, required)_: The ID of the client making the request.
-    - `X-User-ID` _(string, required)_: The ID of the user making the request.
+    - `Content-Type` _(string, required)_: application/json
 
     ### Request Body
     - `event_type` _(string, required)_: The type of event.
@@ -80,7 +80,6 @@ def add_audit_log_event ():
     Host: example.com
     Content-Type: application/json
     X-Client-ID: client123
-    X-User-ID: user456
     {
         "event_type": "USER_LOGIN",
         "status": 200,
@@ -104,7 +103,7 @@ def add_audit_log_event ():
         return jsonify({'error': 'Invalid JSON provided.', 'message': str(e)}), 400
 
     client_id = request.headers.get('X-Client-ID')
-    user_id = request.headers.get('X-User-ID')
+    user_id = data.get('user_id')
     request_method = request.method
     # TODO: Create enum class for status codes and handle appropriately
     status = data.get('status')
