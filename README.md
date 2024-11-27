@@ -24,3 +24,40 @@ As a developer, I want to build an audit trail service capable of receiving, sto
 - Deploy the solution for testing
   - Provide a public URL for accessing the running instance of the service
   - Provide a private archive of the source code
+
+**How to Use this Audit Trail Service:**
+
+I have created 3 endpoints for this service, documentation and sample request values for which may be seen in the routes.py file. At a high level they are as follows:
+
+- **POST /event**
+  This API allows a user to add a new AuditLogEvent entry to the database.
+
+- **GET /event/<event_id>** 
+  This API allows a user to retrieve an AuditLogEvent entry by its unique event_id.
+
+- **GET /events**
+  This API allows a user to retreive all AuditLogEvent entries present in the database. 
+
+Testing of the above may be complete at the following URL: 
+Note: You will want to create entries with the POST /event API first to then retrieve from. You can run the GET /events API to get the event_id value(s) for an existing event to then use
+in the GET /event/<event_id> API. 
+I will include the sample Postman API collection I created to test this code locally in my github repo -> using py run.py in the terminal to spin up a local instance on http://localhost:5000
+
+**Final Notes:**
+
+I have left TODO comments throughout the code indicating items I would like to expand upon and discuss if I were to build out this service beyond a POC that meets the acceptance criteria. 
+In addition to the TODOs, I have a few thoughts with respect to operability and scalability of this service that I would focus on given the time and resources to do so:
+
+- I would want to implement some form of logging for the service to to improve ease of tracking and debugging issues.
+- Integrating monitoring tools to observe application performance would also provide useful insight for areas of improvement.
+- Adding more intensive error handling to prevent crashes, and more time invested in the consistency and quality of error messages presented.
+- Developing with at least a 2 trunk flow- develop and master.
+- Using Swagger/OpenAPI for generating interactive API documentation.
+- Testing: unit tests, integration tests, end-to-end testing, automated tests in a CI/CD pipeline.
+- Implementation of user authorization & authentication to enhance security.
+- Utilizng configuration files for the management of sensitive information, environment variables, etc. 
+- Indexing within the database and immplementing caches to improve performance.
+- Use load balancers to evenly distribute incoming traffic.
+- etc. 
+
+Thanks for reading! 

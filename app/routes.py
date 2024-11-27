@@ -82,6 +82,7 @@ def add_audit_log_event ():
     X-Client-ID: client123
     {
         "event_type": "USER_LOGIN",
+        "user_id": "user1",
         "status": 200,
         "entity_json": {
             "key": "value"
@@ -157,7 +158,7 @@ def get_audit_log_event(event_id):
     #### 200 OK
     ```json
     {
-        "id": "event_id",
+        "event_id": "event_id",
         "event_type": "USER_LOGIN",
         "created_at": "2024-04-06T14:00:00Z",
         "client_id": "client123",
@@ -204,7 +205,7 @@ def get_audit_log_event(event_id):
             return jsonify({'error': 'Event not found'}), 404
 
         return jsonify({
-            'id': requested_audit_log_event.event_id,
+            'event_id': requested_audit_log_event.event_id,
             'event_type': requested_audit_log_event.event_type,
             'created_at': requested_audit_log_event.created_at,
             'client_id': requested_audit_log_event.client_id,
@@ -239,7 +240,7 @@ def get_all_audit_log_events():
     ```json
     [
         {
-            "id": "event_id",
+            "event_id": "event_id",
             "event_type": "USER_LOGIN",
             "created_at": "2024-04-06T14:00:00Z",
             "client_id": "client123",
@@ -278,7 +279,7 @@ def get_all_audit_log_events():
         audit_log_events = AuditLogEvent.query.all()
         audit_log_event_list = [
             {
-                'id': event.event_id,
+                'event_id': event.event_id,
                 'event_type': event.event_type,
                 'created_at': event.created_at,
                 'client_id': event.client_id,
