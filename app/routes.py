@@ -22,6 +22,8 @@ def add_audit_log_event ():
 
     ### Request Body
     - `event_type` _(string, required)_: The type of event.
+    - `user_id` _(string, optional)_: The id of the user who triggered the event.
+    - `request_method` _(string, optional)_: The type of HTTP request for the event.
     - `status` _(integer, optional)_: The status code of the event.
       (TODO: Create enum class for status codes)
     - `entity_json` _(JSON, optional)_: Additional data specific to the event.
@@ -83,6 +85,7 @@ def add_audit_log_event ():
     {
         "event_type": "USER_LOGIN",
         "user_id": "user1",
+        "request_method":"POST",
         "status": 200,
         "entity_json": {
             "key": "value"
@@ -105,7 +108,7 @@ def add_audit_log_event ():
 
     client_id = request.headers.get('X-Client-ID')
     user_id = data.get('user_id')
-    request_method = request.method
+    request_method = data.get('request_method')
     # TODO: Create enum class for status codes and handle appropriately
     status = data.get('status')
     event_type = data['event_type']

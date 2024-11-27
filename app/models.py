@@ -25,7 +25,7 @@ class AuditLogEvent(audit_trail_db.Model):
     - created_at (datetime): Time when the event occurred.
     - client_id (str): Identifier for the client generating the event.
     - user_id (str, optional): Identifier for the user performing the action.
-    - request_method (str): HTTP method used for the request.
+    - request_method (str): HTTP method used for the request captured within the event.
     - status (int, optional): Status code of the event captured by the audit log (e.g., 200).
     - entity_json (JSON, optional): the variant data for the event, specific to the given
       microservice logging it.
@@ -39,7 +39,7 @@ class AuditLogEvent(audit_trail_db.Model):
                                             default=lambda: datetime.utcnow(), nullable=False)
     client_id = audit_trail_db.Column(audit_trail_db.String(50), nullable=False)
     user_id = audit_trail_db.Column(audit_trail_db.String(50), nullable=True)
-    request_method = audit_trail_db.Column(audit_trail_db.String(10), nullable=False)
+    request_method = audit_trail_db.Column(audit_trail_db.String(10), nullable=True)
     status = audit_trail_db.Column(audit_trail_db.Integer, nullable=True)
     entity_json = audit_trail_db.Column(audit_trail_db.JSON, nullable=True)
 
