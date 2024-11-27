@@ -38,10 +38,10 @@ I have created 3 endpoints for this service, documentation and sample request va
 - **GET /events**
   This API allows a user to retreive all AuditLogEvent entries present in the database. 
 
-Testing of the above may be complete at the following URL: 
+Testing of the above may be complete at the following URL: https://audit-trail-service-8a163c91f080.herokuapp.com/
 Note: You will want to create entries with the POST /event API first to then retrieve from. You can run the GET /events API to get the event_id value(s) for an existing event to then use
 in the GET /event/<event_id> API. 
-I will include the sample Postman API collection I created to test this code locally in my github repo -> using py run.py in the terminal to spin up a local instance on http://localhost:5000
+I will include the sample Postman API collection I created to test this deployed code in my github repo. 
 
 **Final Notes:**
 

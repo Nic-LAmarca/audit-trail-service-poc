@@ -79,7 +79,7 @@ def add_audit_log_event ():
     #### Request
     ```http
     POST /event HTTP/1.1
-    Host: example.com
+    Host: https://audit-trail-service-8a163c91f080.herokuapp.com
     Content-Type: application/json
     X-Client-ID: client123
     {
