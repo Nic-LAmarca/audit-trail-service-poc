@@ -159,7 +159,7 @@ def get_audit_log_event(event_id):
     {
         "id": "event_id",
         "event_type": "USER_LOGIN",
-        "timestamp": "2024-04-06T14:00:00Z",
+        "created_at": "2024-04-06T14:00:00Z",
         "client_id": "client123",
         "user_id": "user456",
         "request_method": "POST",
@@ -206,7 +206,7 @@ def get_audit_log_event(event_id):
         return jsonify({
             'id': requested_audit_log_event.event_id,
             'event_type': requested_audit_log_event.event_type,
-            'timestamp': requested_audit_log_event.timestamp,
+            'created_at': requested_audit_log_event.created_at,
             'client_id': requested_audit_log_event.client_id,
             'user_id': requested_audit_log_event.user_id,
             'request_method': requested_audit_log_event.request_method,
@@ -241,7 +241,7 @@ def get_all_audit_log_events():
         {
             "id": "event_id",
             "event_type": "USER_LOGIN",
-            "timestamp": "2024-04-06T14:00:00Z",
+            "created_at": "2024-04-06T14:00:00Z",
             "client_id": "client123",
             "user_id": "user456",
             "request_method": "POST",
@@ -280,7 +280,7 @@ def get_all_audit_log_events():
             {
                 'id': event.event_id,
                 'event_type': event.event_type,
-                'timestamp': event.timestamp,
+                'created_at': event.created_at,
                 'client_id': event.client_id,
                 'user_id': event.user_id,
                 'request_method': event.request_method,
