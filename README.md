@@ -41,7 +41,7 @@ I have created 3 endpoints for this service, documentation and sample request va
 Testing of the above may be complete at the following URL: https://audit-trail-service-8a163c91f080.herokuapp.com/
 Note: You will want to create entries with the POST /event API first to then retrieve from. You can run the GET /events API to get the event_id value(s) for an existing event to then use
 in the GET /event/<event_id> API. 
-I will include the sample Postman API collection I created to test this deployed code in my github repo. 
+I will include the sample Postman API collection I created to test this deployed code. 
 
 **Final Notes:**
 
