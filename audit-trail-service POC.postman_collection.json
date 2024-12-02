@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "9b1ca66a-0693-45f4-988c-bd848baf410f",
+		"name": "audit-trail-service POC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40029498"
+	},
+	"item": [
+		{
+			"name": "GET /events",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Client-ID",
+						"value": "12345678",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://http://localhost:5000/events",
+					"protocol": "https",
+					"host": [
+						"http"
+					],
+					"port": "",
+					"path": [
+						"",
+						"localhost:5000",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /event",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Client-ID",
+						"value": "12345678",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://http://localhost:5000/event/<event_id>",
+					"protocol": "https",
+					"host": [
+						"http"
+					],
+					"port": "",
+					"path": [
+						"",
+						"localhost:5000",
+						"event",
+						"<event_id>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Client-ID",
+						"value": "30001872",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"event_type\": \"Heroku_Deploy2\",\r\n    \"user_id\": \"NicLAmarca\",\r\n    \"request_method\": \"PUT\",\r\n    \"status\": 200,\r\n    \"entity_json\": {\r\n        \"key\": \"From Nic's Postman test2\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://http://localhost:5000/event",
+					"protocol": "https",
+					"host": [
+						"http"
+					],
+					"port": "",
+					"path": [
+						"",
+						"localhost:5000",
+						"event"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
