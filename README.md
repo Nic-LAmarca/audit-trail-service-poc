@@ -1,12 +1,12 @@
 # audit-trail-service
-This repository contains the completed code for the take-home assignment given to me in the Canonical Interview process. Based on the information provided to me, I have scoped out the work according to my understanding as follows:
+This repository contains code for a POC I recently built out in a day. Based on the information provided to me, I scoped out the work according to my understanding as follows:
 
 **User Story:**
 
 As a developer, I want to build an audit trail service capable of receiving, storing, and retrieving audit log events for other microservices, so that I can track audit events efficiently.
 
 **Acceptance Criteria:**
-- Build a POC HTTP server(in Python or Go) to receive, store, and retrieve audit log events for microservices
+- Build a POC HTTP server to receive, store, and retrieve audit log events for microservices
   - The server should expose endpoints to create and fetch audit events
   - Ensure that the server can handle concurrent requests
   
@@ -20,10 +20,6 @@ As a developer, I want to build an audit trail service capable of receiving, sto
 - Document the microservice API
   - Provide clear API documentation with examples of request and response formats
   - Add TODO comments in the code for areas that need improvement or additional features
-    
-- Deploy the solution for testing
-  - Provide a public URL for accessing the running instance of the service
-  - Provide a private archive of the source code
 
 **How to Use this Audit Trail Service:**
 
@@ -38,10 +34,9 @@ I have created 3 endpoints for this service, documentation and sample request va
 - **GET /events**
   This API allows a user to retreive all AuditLogEvent entries present in the database. 
 
-Testing of the above may be complete at the following URL: https://audit-trail-service-8a163c91f080.herokuapp.com/
 Note: You will want to create entries with the POST /event API first to then retrieve from. You can run the GET /events API to get the event_id value(s) for an existing event to then use
 in the GET /event/<event_id> API. 
-I will include the sample Postman API collection I created to test this deployed code. 
+I will include the sample Postman API collection I created to test the code. 
 
 **Final Notes:**
 
