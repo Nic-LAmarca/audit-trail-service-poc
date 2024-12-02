@@ -21,6 +21,14 @@ As a developer, I want to build an audit trail service capable of receiving, sto
   - Provide clear API documentation with examples of request and response formats
   - Add TODO comments in the code for areas that need improvement or additional features
 
+**Tech Stack**
+
+- Python
+- Flask
+- SQLAlchemy
+- SQLite
+- Alembic
+
 **How to Use this Audit Trail Service:**
 
 I have created 3 endpoints for this service, documentation and sample request values for which may be seen in the routes.py file. At a high level they are as follows:
